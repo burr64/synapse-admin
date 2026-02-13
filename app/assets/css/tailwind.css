@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+html {
+  font-family: "Roboto", ui-sans-serif, system-ui;
+}
+
+:root {
+  --main-color: #0dbd8b;
+  --ui-primary: #0dbd8c;
+  --ui-secondary: #02871a
+}
