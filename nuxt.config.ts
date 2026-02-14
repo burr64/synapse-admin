@@ -14,6 +14,9 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@nuxt/icon'
   ],
+  ui: {
+    colorMode: false
+  },
   i18n: {
     defaultLocale: process.env.DEFAULT_LOCALE || 'en',
     locales: [

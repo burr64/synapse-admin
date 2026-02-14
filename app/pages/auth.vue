@@ -10,7 +10,6 @@ definePageMeta({
 })
 
 const login = async () => {
-  if (!username.value || !password.value) return alert("Введите логин и пароль");
   try {
     const res = await $fetch(`${config.public.homeserverUrl}/_matrix/client/v3/login`, {
       method: "POST",
@@ -23,11 +22,25 @@ const login = async () => {
         refresh_token: true,
       },
     });
-    alert("OK: " + JSON.stringify(res));
+
+    // срок хранения
+    const maxAge = remember.value
+      ? 60 * 60 * 24 * 30   // 30 дней
+      : 60 * 60 * 24;       // 1 день
+
+    const access = useCookie("access_token", { maxAge })
+    const refresh = useCookie("refresh_token", { maxAge })
+    const expires = useCookie("expires_at", { maxAge })
+
+    access.value = res.access_token
+    refresh.value = res.refresh_token
+    expires.value = Date.now() + res.expires_in_ms
+
+    await navigateTo("/")
   } catch (e) {
-    alert("ERROR: " + (e?.data?.error || e.message));
+    alert("ERROR: " + (e?.data?.error || e.message))
   }
-};
+}
 </script>
 
 <template>
@@ -65,7 +78,7 @@ const login = async () => {
           </UFormField>
           <UCheckbox v-model="remember" :label="$t('rememberMe')"/>
         </div>
-        <UButton type="sumbit" icon="i-lucide-rocket" size="md" class="rounded-2xl tracking-widest font-semibold px-6">{{ $t("login") }}</UButton>
+        <UButton type="sumbit" icon="i-lucide-rocket" size="md" class="rounded-xl tracking-widest font-semibold px-6">{{ $t("login") }}</UButton>
       </form>
       <div class="flex justify-between text-gray-400">
         <UButton to="https://github.com/nuxt/ui" icon="grommet-icons:github" target="_blank" variant="link" color="neutral"/>

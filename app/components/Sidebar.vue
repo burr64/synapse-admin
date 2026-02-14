@@ -8,20 +8,14 @@ const config = useRuntimeConfig();
     <div class="flex flex-col gap-8">
       <h2 class="text-xl font-bold">{{ config.public.serverName }}</h2>
       <ul class="flex flex-col gap-2">
-        <li class="w-fit">
-          <NuxtLink to="/users" class="flex items-center gap-2">
-            <Icon name="material-symbols:group-outline" size="1.5em" />
-            <span>{{ $t("users") }}</span>
-          </NuxtLink>
+        <li>
+          <UButton variant="ghost" size="xl" to="/users" icon="material-symbols:group-outline" class="w-full">{{ $t("users") }}</UButton>
         </li>
-        <li class="w-fit">
-          <NuxtLink to="/rooms" class="flex items-center gap-2">
-            <Icon name="material-symbols:android-messages-outline" size="1.5em" />
-            <span>{{ $t("rooms") }}</span>
-          </NuxtLink>
+        <li>
+          <UButton variant="ghost" size="xl" to="/rooms" icon="material-symbols:android-messages-outline" class="w-full">{{ $t("rooms") }}</UButton>
         </li>
       </ul>
     </div>
-    <UButton variant="ghost" to="/auth" icon="ic:baseline-log-out">{{ $t("logout") }}</UButton>
+    <UButton variant="ghost" size="xl" to="/auth" icon="ic:baseline-log-out">{{ $t("logout") }}</UButton>
   </header>
 </template>
