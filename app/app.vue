@@ -4,7 +4,7 @@ const config = useRuntimeConfig()
 useHead({
   style: [
     {
-      children: `:root { --main-color: ${config.public.mainColor}; }`
+      children: `:root { --ui-primary: ${config.public.mainColor}; }`
     }
   ]
 })
@@ -14,5 +14,6 @@ useHead({
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
+    <AppNotification />
   </div>
 </template>
